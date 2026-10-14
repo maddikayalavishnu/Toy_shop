@@ -1,0 +1,21 @@
+{
+  "name": "toyland-shop",
+  "version": "1.0.0",
+  "description": "ToyLand - Complete End-to-End E-Commerce Website for Toys",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "toy-shop",
+    "ecommerce",
+    "toys",
+    "stem",
+    "kids",
+    "checkout",
+    "order-tracking"
+  ],
+  "author": "ToyLand Team",
+  "license": "MIT"
+}

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToyLand • Discover Magic, Fun &amp; Learning Toys</title>
+  <meta name="description" content="Explore handcrafted wooden toys, STEM robotics kits, cozy plush friends, and family games. Safe, non-toxic, and built for joyful play.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Fullscreen Confetti Canvas for Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Special Offers">
+    <div class="container">
+      <div class="marquee-text">
+        <span>🚀 <strong>GRAND TOY FESTIVAL:</strong> Free Express Shipping on Orders Over $50!</span>
+        <span>•</span>
+        <span>Get <strong>20% OFF</strong> with coupon code: <span class="code-tag">MAGIC20</span></span>
+        <span>•</span>
+        <span>🎁 Spin the Lucky Wheel for instant prizes!</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Logo -->
+      <a href="index.html" class="logo-wrapper" title="ToyLand Home">
+        <img src="assets/images/logo.svg" alt="ToyLand Logo" class="logo-img">
+      </a>
+
+      <!-- Live Search Bar -->
+      <div class="header-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search toys, robots, teddy bears, LEGO, puzzles..." aria-label="Search products">
+        <button id="clear-search-btn" class="clear-search-btn" title="Clear search">✕</button>
+      </div>
+
+      <!-- Header Action Controls -->
+      <div class="header-actions">
+        <!-- Audio / Sound FX Toggle -->
+        <button id="toggle-sound-btn" class="header-btn icon-btn" title="Sound Effects On/Off" aria-label="Toggle Sound">
+          🔔
+        </button>
+
+        <!-- Dark / Light Mode Toggle -->
+        <button id="toggle-theme-btn" class="header-btn icon-btn" title="Toggle Theme" aria-label="Toggle Theme">
+          🌙
+        </button>
+
+        <!-- Order Tracker Trigger Button -->
+        <button class="header-btn tracker-trigger" title="Track your parcel">
+          <span>📦</span> <span class="btn-text-label">Track Order</span>
+        </button>
+
+        <!-- Wishlist Drawer Trigger -->
+        <button class="header-btn wishlist-trigger" title="View Wishlist">
+          <span>💖</span> <span class="btn-text-label">Wishlist</span>
+          <span class="btn-badge wishlist-count-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Shopping Cart Trigger -->
+        <button class="header-btn cart-trigger" title="View Shopping Cart">
+          <span>🛒</span> <span class="btn-text-label">Cart</span>
+          <span class="btn-badge cart-count-badge" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Secondary Sub-Navigation Bar -->
+  <nav class="sub-nav" aria-label="Quick Categories">
+    <div class="container">
+      <ul class="sub-nav-list">
+        <li class="sub-nav-item active"><a href="#shop-catalog">🧸 All Toys</a></li>
+        <li class="sub-nav-item"><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='building-stem'; window.toyApp.renderProducts();">🚀 STEM &amp; Building</a></li>
+        <li class="sub-nav-item"><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='plush-soft'; window.toyApp.renderProducts();">🐻 Plush &amp; Soft</a></li>
+        <li class="sub-nav-item"><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='action-dolls'; window.toyApp.renderProducts();">🏰 Dolls &amp; Castles</a></li>
+        <li class="sub-nav-item"><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='board-puzzles'; window.toyApp.renderProducts();">🎲 Board Games</a></li>
+        <li class="sub-nav-item"><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='outdoor-ride'; window.toyApp.renderProducts();">🛴 Outdoor Play</a></li>
+        <li class="sub-nav-item"><a href="javascript:void(0)" class="special-pill-tag btn-trigger-quiz">✨ Gift Advisor Quiz</a></li>
+        <li class="sub-nav-item"><a href="javascript:void(0)" class="special-pill-tag btn-trigger-wheel" style="background: linear-gradient(135deg, #FFB300, #FF5E7E);">🎡 Spin Wheel</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>🎉 Handcrafted Joy &amp; Smart Learning</span>
+        </div>
+        <h1 class="hero-title">
+          Where Every Toy Sparks a <span class="highlight-text">New Universe!</span>
+        </h1>
+        <p class="hero-desc">
+          Inspire curiosity with 100% child-safe wooden sets, high-tech STEM robotics, cuddle-ready plushies, and cooperative family board games. Safe, educational, and shipped with love.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#shop-catalog" class="btn-primary">
+            <span>Explore Catalog</span> <span>➔</span>
+          </a>
+          <button class="btn-secondary btn-trigger-quiz">
+            <span>🎯 Gift Finder Quiz</span>
+          </button>
+          <button class="btn-fun-wheel btn-trigger-wheel">
+            <span>🎡 Spin for 25% Off</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-main-card">
+          <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=700&q=80" alt="Featured Toy" onerror="this.onerror=null; this.src='assets/images/placeholder-toy.svg';">
+          <span class="hero-card-badge">⭐ Toy of the Month</span>
+          <div class="hero-card-caption">
+            <div>
+              <strong style="font-size: 1.05rem;">Magnetic Castle Builder</strong>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Ages 3-8 • 100 Magnetic Pieces</div>
+            </div>
+            <strong style="color: var(--primary); font-size: 1.3rem;">$39.99</strong>
+          </div>
+        </div>
+
+        <!-- Floating interactive stat badges -->
+        <div class="floating-stat-badge badge-top-left">
+          <span class="stat-icon">🛡️</span>
+          <div class="stat-info">
+            <strong>100% Non-Toxic</strong>
+            <span>BPA-Free &amp; ASTM Certified</span>
+          </div>
+        </div>
+
+        <div class="floating-stat-badge badge-bottom-right">
+          <span class="stat-icon">🚀</span>
+          <div class="stat-info">
+            <strong>Fast 2-Day Air</strong>
+            <span>Bubble-Cushioned Boxes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Safety Badges Bar -->
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon coral">🛡️</div>
+        <div class="trust-content">
+          <h4>Certified Child-Safe</h4>
+          <p>100% Non-toxic, BPA-free &amp; EN71 standards</p>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon purple">🚀</div>
+        <div class="trust-content">
+          <h4>Toy Express Shipping</h4>
+          <p>Free on orders over $50 with real-time tracking</p>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon gold">🎁</div>
+        <div class="trust-content">
+          <h4>Deluxe Gift Wrapping</h4>
+          <p>Hand-tied satin bows &amp; custom greeting cards</p>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon green">⭐</div>
+        <div class="trust-content">
+          <h4>30-Day Smiles Guarantee</h4>
+          <p>Hassle-free 100% refund if child isn't delighted</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Grid Navigation -->
+  <section class="section-wrapper" id="explore-categories">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>Shop by Category</h2>
+          <p>Find the perfect playtime adventure for every curiosity</p>
+        </div>
+      </div>
+
+      <div class="category-tiles-grid" id="category-tiles-container">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Product Catalog Section -->
+  <section class="section-wrapper" id="shop-catalog" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2>Magical Toy Catalog</h2>
+          <p>Curated toys tested by educators, parents, and enthusiastic kids</p>
+        </div>
+        <div>
+          <button class="btn-secondary btn-trigger-quiz" style="font-size: 0.9rem; padding: 8px 16px;">
+            <span>🤖 Need Help Choosing? Take Quiz</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Age Filter Pills -->
+      <div class="age-pills-row" id="age-pills-container">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+      <!-- Filter & Sort Controls Bar -->
+      <div class="catalog-controls-bar">
+        <div class="controls-left">
+          <!-- Price Slider -->
+          <div class="price-slider-group">
+            <label for="price-slider">Max Price: <strong id="price-slider-value" style="color: var(--primary);">$120</strong></label>
+            <input type="range" id="price-slider" min="15" max="120" step="5" value="120">
+          </div>
+
+          <!-- In-Stock Checkbox -->
+          <label class="instock-toggle-label">
+            <input type="checkbox" id="instock-checkbox">
+            <span>In-Stock Only</span>
+          </label>
+        </div>
+
+        <div class="controls-right">
+          <!-- Results Count -->
+          <span class="results-count-text" id="results-count-text">Loading toys...</span>
+
+          <!-- Sort Dropdown -->
+          <select id="sort-select" class="sort-select" aria-label="Sort products">
+            <option value="popularity">Sort by: Most Popular</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Customer Rating</option>
+            <option value="reviews">Most Reviewed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-catalog-grid">
+        <!-- Dynamically populated by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Gift Finder Quiz Promotional Banner -->
+  <section class="container">
+    <div class="quiz-banner-section">
+      <div class="quiz-banner-grid">
+        <div class="quiz-banner-content">
+          <h3>Unsure What Toy to Buy? 🎈</h3>
+          <p>Answer 3 quick questions about the child's age, interests, and your budget, and our smart Toy Advisor will recommend the best match in seconds!</p>
+          <button class="btn-quiz-start btn-trigger-quiz">
+            <span>Launch Gift Advisor Quiz</span> <span>➔</span>
+          </button>
+        </div>
+        <div class="quiz-banner-illustration">
+          🎁✨
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews & Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header" style="text-align: center; justify-content: center;">
+        <div class="section-header-left" style="text-align: center;">
+          <h2>Loved by 25,000+ Happy Families</h2>
+          <p>Real stories from delighted parents, teachers, and gift-givers</p>
+        </div>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"The Magnetic 3D Castle Tiles kept my 4 and 6-year-old completely entertained for hours without screens! The quality is outstanding, and the express shipping arrived in just 2 days with a gorgeous ribbon."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EM</div>
+            <div class="author-info">
+              <strong>Emily &amp; Liam Morrison</strong>
+              <span>✓ Verified Parent Buyer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"Finding safe, non-toxic wooden toys that don't chip easily used to be so hard. ToyLand's Montessori stacking arcs and chef kitchen are gorgeous heirloom quality. Customer service was so sweet too!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background: linear-gradient(135deg, #00CEC9, #0984E3);">DK</div>
+            <div class="author-info">
+              <strong>David K. (Preschool Teacher)</strong>
+              <span>✓ Verified Educator</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"Ordered the Programmable Solar Rover for my nephew's 10th birthday. The custom greeting card was printed so nicely, and tracking the parcel step-by-step gave me total peace of mind. 10/10!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background: linear-gradient(135deg, #FFB300, #FF7675);">SC</div>
+            <div class="author-info">
+              <strong>Samantha Chen</strong>
+              <span>✓ Verified Gift Giver</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions (FAQ) Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header" style="text-align: center; justify-content: center; margin-bottom: 30px;">
+        <div class="section-header-left" style="text-align: center;">
+          <h2>Got Questions? We've Got Answers!</h2>
+          <p>Everything you need to know about safety, shipping, and gift orders</p>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question">
+            <span>Are all toys certified 100% child-safe?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes! Every product in ToyLand undergoes rigorous laboratory safety testing meeting ASTM F963 (US) and EN71 (European) safety guidelines. All plastics are BPA-free and food-grade, while our wooden toys use water-based, lead-free organic stains.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How fast is shipping and can I track my order?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Orders placed before 2:00 PM are packed and dispatched the very same day! Ground delivery takes 3-5 business days (Free over $50), while Express Rocket Delivery takes 1-2 business days. You can track your parcel anytime using our live visual Order Tracker using your Order ID.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I add custom gift wrapping and a personalized note?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Absolutely! In the checkout step, simply check "Add Deluxe Gift Wrapping". Our team will hand-wrap your parcel in colorful festive wrapping paper, tie a satin bow, and handwrite your custom greeting message card.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What is your return and happiness guarantee policy?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            We offer an unconditional 30-Day Smiles Guarantee. If your little one isn't 100% delighted with their toy, return it in original packaging for a full refund or instant replacement with prepaid return shipping labels.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup Box -->
+  <section class="container">
+    <div class="newsletter-box">
+      <h3>Join the ToyLand Family Club 💌</h3>
+      <p>Subscribe for exclusive birthday discount codes, secret flash sales, and play guides.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+        <button type="submit">Unlock 15% Off</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="assets/images/logo.svg" alt="ToyLand Logo" style="height: 44px; filter: brightness(1.2); margin-bottom: 14px;">
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            ToyLand creates magical playtime memories with safe, sustainable, and developmentally inspiring toys for curious minds from infancy to teens.
+          </p>
+          <div style="font-size: 0.85rem; color: #747D8C;">
+            📍 100 Joyful Play Way, Toy District, NY 10001<br>
+            📞 1-800-TOY-LAND • ✉️ support@toylandmagic.com
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Categories</h5>
+          <ul>
+            <li><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='building-stem'; window.toyApp.renderProducts();">STEM &amp; Robotics</a></li>
+            <li><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='plush-soft'; window.toyApp.renderProducts();">Cuddly Plushies</a></li>
+            <li><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='action-dolls'; window.toyApp.renderProducts();">Action &amp; Figures</a></li>
+            <li><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='board-puzzles'; window.toyApp.renderProducts();">Puzzles &amp; Board Games</a></li>
+            <li><a href="#shop-catalog" onclick="window.toyApp.selectedCategory='outdoor-ride'; window.toyApp.renderProducts();">Scooters &amp; Outdoor</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Customer Care</h5>
+          <ul>
+            <li><a href="javascript:void(0)" class="tracker-trigger">Order Tracking</a></li>
+            <li><a href="javascript:void(0)" class="btn-trigger-quiz">Gift Advisor</a></li>
+            <li><a href="javascript:void(0)" class="btn-trigger-wheel">Spin the Lucky Wheel</a></li>
+            <li><a href="#shop-catalog">Shipping &amp; Delivery</a></li>
+            <li><a href="#shop-catalog">Safety Testing Standards</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Safety Pledge</h5>
+          <p style="font-size: 0.85rem; line-height: 1.6; margin-bottom: 14px;">
+            Every product is backed by rigorous independent testing for zero phthalates, non-toxic pigments, and drop-proof durability.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">ASTM F963</span>
+            <span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">EN71 CERT</span>
+            <span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">BPA FREE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 ToyLand Inc. Built with love for kids of all ages.
+        </div>
+        <div class="payment-badges-row">
+          <span title="Visa">💳</span>
+          <span title="Mastercard">🏧</span>
+          <span title="Apple Pay">🍎</span>
+          <span title="Google Pay">📱</span>
+          <span title="PayPal">🅿️</span>
+          <span title="Cash on Delivery">💵</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Fast-Access Spin Wheel Button -->
+  <button class="floating-gift-button btn-trigger-wheel" title="Spin for instant discount!">
+    <span>🎡</span> <span>Spin to Win!</span>
+  </button>
+
+  <!-- ==========================================================================
+       Slide-Over Drawers (Cart & Wishlist)
+       ========================================================================== -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+
+  <!-- Shopping Cart Drawer -->
+  <aside id="cart-drawer" class="side-drawer" aria-label="Shopping Cart">
+    <div class="drawer-header">
+      <h3><span>🛒</span> Your Toy Basket</h3>
+      <button class="drawer-close-btn" title="Close Cart">✕</button>
+    </div>
+
+    <!-- Free Shipping Progress Tracker -->
+    <div class="free-shipping-meter">
+      <div class="free-ship-label" id="free-ship-meter-label">
+        <span>Add <strong>$50.00</strong> for <strong>FREE Shipping</strong></span>
+        <span>0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar-fill" id="free-ship-meter-bar"></div>
+      </div>
+    </div>
+
+    <div class="drawer-items-list" id="cart-drawer-items">
+      <!-- Injected by cart.js & app.js -->
+    </div>
+
+    <div class="drawer-footer" id="cart-drawer-footer">
+      <!-- Injected by app.js -->
+    </div>
+  </aside>
+
+  <!-- Wishlist Drawer -->
+  <aside id="wishlist-drawer" class="side-drawer" aria-label="Saved Wishlist">
+    <div class="drawer-header">
+      <h3><span>💖</span> Saved Favorites</h3>
+      <button class="drawer-close-btn" title="Close Wishlist">✕</button>
+    </div>
+
+    <div class="drawer-items-list" id="wishlist-drawer-items">
+      <!-- Injected by app.js -->
+    </div>
+
+    <div class="drawer-footer" id="wishlist-drawer-footer">
+      <!-- Injected by app.js -->
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Modals (Quick View, Checkout, Tracker, Quiz, Wheel)
+       ========================================================================== -->
+
+  <!-- Quick View Modal -->
+  <div id="quickview-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close-icon">✕</button>
+      <div id="quickview-content">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Step Checkout Modal -->
+  <div id="checkout-modal" class="modal-overlay">
+    <div class="modal-card checkout-modal-card">
+      <button class="modal-close-icon">✕</button>
+      <div class="checkout-header">
+        <h2 style="font-size: 1.6rem; color: var(--text-main);">ToyLand Express Checkout</h2>
+        <div class="checkout-steps-indicator" id="checkout-step-indicator">
+          <!-- Rendered by app.js -->
+        </div>
+      </div>
+
+      <div class="checkout-body" id="checkout-step-container">
+        <!-- Steps 1 to 4 rendered dynamically by checkoutManager and app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Tracker Modal -->
+  <div id="tracker-modal" class="modal-overlay">
+    <div class="modal-card tracker-modal-card" style="padding: 30px;">
+      <button class="modal-close-icon">✕</button>
+      <h2 style="font-size: 1.6rem; margin-bottom: 6px;">Live Order Tracker 🚀</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+        Track your package in real-time as it flies from our toy warehouse to your doorstep.
+      </p>
+
+      <div class="tracker-lookup-bar">
+        <input type="text" id="tracker-search-input" placeholder="Enter Order ID (e.g. TOY-2026-DEMO)">
+        <button class="btn-primary" id="btn-tracker-search" style="padding: 0 20px;">Track</button>
+      </div>
+
+      <div id="tracker-display-container">
+        <!-- Timeline and details rendered by app.js & tracker.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Gift Finder Quiz Modal -->
+  <div id="quiz-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 650px; padding: 36px 30px;">
+      <button class="modal-close-icon">✕</button>
+      <div id="quiz-step-container">
+        <!-- 3-step questions rendered by quiz.js and app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Spin The Wheel Modal -->
+  <div id="wheel-modal" class="modal-overlay">
+    <div class="modal-card wheel-modal-card">
+      <button class="modal-close-icon">✕</button>
+      <h2 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 4px;">Spin the Lucky Wheel! 🎡</h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem;">
+        Give the wheel a spin to unlock instant promo codes for your order!
+      </p>
+
+      <div class="wheel-canvas-container">
+        <div class="wheel-pointer"></div>
+        <canvas id="wheel-canvas" width="320" height="320"></canvas>
+      </div>
+
+      <button class="btn-primary" id="btn-spin-wheel" style="font-size: 1.1rem; padding: 12px 32px; margin: 0 auto;">
+        <span>🎯 Spin the Wheel!</span>
+      </button>
+
+      <div id="wheel-prize-banner" class="wheel-prize-banner">
+        <div id="wheel-prize-text" style="font-size: 1.1rem; margin-bottom: 10px;"></div>
+        <button class="btn-primary" id="btn-apply-wheel-prize" style="display: none; padding: 8px 18px; font-size: 0.9rem;">
+          Apply Code to Cart 🎉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules in proper dependency order -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/wheel.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
